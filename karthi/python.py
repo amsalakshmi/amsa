@@ -1,25 +1,27 @@
-import statistics
-
-def analyze_data(numbers):
-    if len(numbers) == 0:
-        return "No data provided"
-
+def analyze_marks(marks):
     result = {}
-    result["Total Count"] = len(numbers)
-    result["Sum"] = sum(numbers)
-    result["Average"] = sum(numbers) / len(numbers)
-    result["Median"] = statistics.median(numbers)
-    result["Maximum"] = max(numbers)
-    result["Minimum"] = min(numbers)
-    result["Standard Deviation"] = statistics.stdev(numbers) if len(numbers) > 1 else 0
+
+    result["Total"] = sum(marks)
+    result["Average"] = sum(marks) / len(marks)
+    result["Highest"] = max(marks)
+    result["Lowest"] = min(marks)
+
+    passed = 0
+    for m in marks:
+        if m >= 40:
+            passed += 1
+
+    result["Passed Subjects"] = passed
+    result["Failed Subjects"] = len(marks) - passed
 
     return result
 
 
-# Sample Input
-data = [12, 45, 23, 67, 34, 89, 21, 56]
+marks = list(map(int, input("Enter marks separated by space: ").split()))
 
-output = analyze_data(data)
+analysis = analyze_marks(marks)
 
-for key, value in output.items():
-    print(f"{key} : {value}")
+for key, value in analysis.items():
+    print(key, ":", value)
+
+
